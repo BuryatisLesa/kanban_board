@@ -1,0 +1,32 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 103, 163, 1);
+}
+
+.header__title{
+    font-size: 28px;
+    color: rgba(255, 255, 255, 1);
+    margin-left: 20px;
+}
+
+.header__user-menu {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.header__container-avatar{
+    background-color: white;
+    border-radius: 50%;
+    max-height: 38.4px;
+    max-width: 38.4px;
+    border: 2px solid black;
+}
+
+.header__open-menu {
+    background: none;
+    border: none;
+}
