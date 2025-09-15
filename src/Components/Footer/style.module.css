@@ -1,0 +1,17 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    background-color: rgba(0, 103, 163, 1);
+    color: rgba(255, 255, 255, 1);
+    padding: 17px;
+}
+
+
+.footer__container-tasks {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
