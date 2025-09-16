@@ -4,6 +4,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0%;
 }
 
 code {
