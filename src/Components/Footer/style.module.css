@@ -1,17 +1,27 @@
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    background-color: rgba(0, 103, 163, 1);
-    color: rgba(255, 255, 255, 1);
-    padding: 17px;
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 103, 163, 1);
+  padding: 12px 20px;
+  font-size: 14px;
+  color: white;
 }
-
 
 .footer__container-tasks {
-    display: flex;
-    align-items: center;
-    gap: 36px;
+  display: flex;
+  gap: 16px;
 }
 
+.footer__active-tasks,
+.footer__finished-tasks {
+  font-weight: 500;
+}
+
+@media (max-width: 338px) {
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

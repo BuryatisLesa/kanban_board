@@ -1,58 +1,39 @@
-import styles from "./style.module.css";
+import { Routes, Route } from "react-router-dom";
 import Stage from "../Stage";
-import { useState, useEffect } from "react";
+import TaskPage from "../TaskPage";
 import { StageType } from "../../type";
+import styles from "./style.module.css";
 
-const dataMock: StageType[] = [
-  {
-    title: "Backlog",
-    issues: [
-      { id: "1", name: "Sprint bugfix", description: "Fix all the bugs" },
-      { id: "2", name: "Login page", description: "Optimize performance" },
-    ],
-  },
-  {
-    title: "Ready",
-    issues: [
-      { id: "3", name: "User profile page", description: "Implement layout" },
-    ],
-  },
-  { title: "In Progress", issues: [] },
-  { title: "Finished", issues: [] },
-];
+type MainProps = {
+  stages: StageType[];
+  setStages: React.Dispatch<React.SetStateAction<StageType[]>>;
+};
 
-
-const LS_KEY = "kanban_stages";
-
-function Main() {
-    const [stages, setStages] = useState<StageType[]>(() => {
-    const raw = localStorage.getItem(LS_KEY);
-    if (raw) {
-        try {
-        return JSON.parse(raw) as StageType[];
-        } catch {
-        console.error("Ошибка при чтении localStorage");
-        }
-    }
-    return dataMock;
-    });
-
-    useEffect(() => {
-    localStorage.setItem(LS_KEY, JSON.stringify(stages));
-    }, [stages]);
-
-    return (
-        <main className={styles["main"]}>
-        {stages.map((stage) => (
-            <Stage
-            key={stage.title}
-            title={stage.title}
-            issues={stage.issues}
-            setStages={setStages}
-            stages={stages}
-            />
-        ))}
-        </main>
+function Main({ stages, setStages }: MainProps) {
+  return (
+    <main className={styles.main}>
+      <Routes>
+        {/* Доска */}
+        <Route
+          path="/"
+          element={
+            <>
+              {stages.map((stage) => (
+                <Stage
+                  key={stage.title}
+                  title={stage.title}
+                  issues={stage.issues}
+                  setStages={setStages}
+                  stages={stages}
+                />
+              ))}
+            </>
+          }
+        />
+        {/* Страница задачи */}
+        <Route path="/tasks/:id" element={<TaskPage stages={stages} />} />
+      </Routes>
+    </main>
   );
 }
 

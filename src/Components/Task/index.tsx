@@ -1,14 +1,13 @@
-import styles from './style.module.css'
+import { Link } from "react-router-dom";
+import { Issue } from "../../type";
+import styles from "./style.module.css";
 
-type TaskItem = {
-  id: string;
-  name: string;
-  description: string;
-};
-
-
-function Task({ name }: TaskItem) {
-  return <a className={styles["task"]}>{name}</a>;
+function Task({ id, name }: Issue) {
+  return (
+    <Link to={`/tasks/${id}`} className={styles.task}>
+      {name}
+    </Link>
+  );
 }
 
 export default Task;

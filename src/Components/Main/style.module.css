@@ -1,8 +1,16 @@
-main {
-    display: flex;
-    flex-direction: row;
-    background-color: rgba(0, 121, 191, 1);
-    max-height: 700px;
-    gap: 24px;
-    align-items: flex-start;
+.main {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 121, 191, 1);
+  gap: 24px;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+@media (max-width: 338px) {
+  .main {
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+  }
 }

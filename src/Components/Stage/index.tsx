@@ -28,7 +28,7 @@ function Stage({ title, issues, setStages, stages }: StageProps) {
       const newTask: Issue = {
         id: Date.now().toString(),
         name: newTaskName,
-        description: `Task from ${title}`,
+        description: `This task has no description`,
       };
 
       setStages((prev) =>
