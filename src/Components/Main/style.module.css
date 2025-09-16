@@ -2,6 +2,7 @@ main {
     display: flex;
     flex-direction: row;
     background-color: rgba(0, 121, 191, 1);
-    /* min-height: 700px; */
+    max-height: 700px;
     gap: 24px;
+    align-items: flex-start;
 }

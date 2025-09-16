@@ -7,6 +7,7 @@
     background-color: rgba(235, 236, 240, 1);
     margin: 25px 19px 32px 19px;
     border-radius: 10px;
+    max-height: 600px;
 }
 
 .stage__title {
@@ -19,8 +20,64 @@
     flex-direction: column;
     gap: 15px;
     margin: 0px 12px 17px 12px;
+    overflow-y: auto;
 }
 
-.stage__createTask {
-    display: none;
+.input_task {
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    padding: 7px 9px 7px 8px;
+    margin: 0px 12px 17px 12px;
+}
+
+.input_task input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+    outline: none;
+}
+
+.stage__containerButton {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+#stage__addButton {
+    margin-left: 14px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background: none;
+    border: none;
+    gap: 5px;
+    color: rgba(94, 108, 132, 1);
+    font-size: 18px;
+}
+
+#stage__submit {
+    background-color: rgba(0, 121, 191, 1);
+    padding: 4px 8px 4px;
+    border-radius: 5px;
+    border: none;
+    color: rgba(255, 255, 255, 1);
+    font-size: 21px;
+    margin: 4px 20px 4px;
+}
+
+.stage__select {
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    padding: 7px 9px 7px 8px;
+    margin: 0px 12px 17px 12px;
+
+}
+
+.stage__select select {
+    background: none;
+    border: none;
+    width: 100%;
 }

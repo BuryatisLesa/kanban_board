@@ -25,38 +25,34 @@ const dataMock: StageType[] = [
 const LS_KEY = "kanban_stages";
 
 function Main() {
-  const [stages, setStages] = useState<StageType[]>(dataMock);
-
-  // Загружаем из localStorage при первом рендере
-  useEffect(() => {
+    const [stages, setStages] = useState<StageType[]>(() => {
     const raw = localStorage.getItem(LS_KEY);
     if (raw) {
-      try {
-        const parsed = JSON.parse(raw) as StageType[];
-        setStages(parsed);
-      } catch {
-        console.error("Ошибка при чтении данных из localStorage");
-      }
+        try {
+        return JSON.parse(raw) as StageType[];
+        } catch {
+        console.error("Ошибка при чтении localStorage");
+        }
     }
-  }, []);
+    return dataMock;
+    });
 
-  // Сохраняем при каждом изменении stages
-  useEffect(() => {
+    useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(stages));
-  }, [stages]);
+    }, [stages]);
 
-  return (
-    <main className={styles["main"]}>
-      {stages.map((stage) => (
-        <Stage
-          key={stage.title}
-          title={stage.title}
-          issues={stage.issues}
-          setStages={setStages}
-          stages={stages}
-        />
-      ))}
-    </main>
+    return (
+        <main className={styles["main"]}>
+        {stages.map((stage) => (
+            <Stage
+            key={stage.title}
+            title={stage.title}
+            issues={stage.issues}
+            setStages={setStages}
+            stages={stages}
+            />
+        ))}
+        </main>
   );
 }
 

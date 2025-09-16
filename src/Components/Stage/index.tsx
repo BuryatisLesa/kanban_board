@@ -14,12 +14,14 @@ const stageOrder = ["Backlog", "Ready", "In Progress", "Finished"];
 
 function Stage({ title, issues, setStages, stages }: StageProps) {
   const [newTaskName, setNewTaskName] = useState("");
-  const [selectedTaskId, setSelectedTaskId] = useState("");
+  const [stateInput, setStateInput] = useState(false);
 
   const currentIndex = stageOrder.indexOf(title);
   const prevStage = currentIndex > 0 ? stageOrder[currentIndex - 1] : null;
 
-  const handleAddCard = () => {
+  const handleAddCard = (taskId?: string) => {
+    setStateInput(false);
+
     if (title === "Backlog") {
       if (!newTaskName.trim()) return;
 
@@ -37,16 +39,14 @@ function Stage({ title, issues, setStages, stages }: StageProps) {
         )
       );
       setNewTaskName("");
-    } else if (prevStage && selectedTaskId) {
-      // перемещаем задачу из предыдущей стадии
+    } else if (prevStage && taskId) {
       let movedTask: Issue | null = null;
 
       setStages((prev) =>
         prev.map((stage) => {
           if (stage.title === prevStage) {
-            // вырезаем задачу из предыдущей
             const filtered = stage.issues.filter((i) => {
-              if (i.id === selectedTaskId) {
+              if (i.id === taskId) {
                 movedTask = i;
                 return false;
               }
@@ -55,13 +55,11 @@ function Stage({ title, issues, setStages, stages }: StageProps) {
             return { ...stage, issues: filtered };
           }
           if (stage.title === title && movedTask) {
-            // добавляем в текущую
             return { ...stage, issues: [...stage.issues, movedTask] };
           }
           return stage;
         })
       );
-      setSelectedTaskId("");
     }
   };
 
@@ -74,24 +72,48 @@ function Stage({ title, issues, setStages, stages }: StageProps) {
         ))}
       </div>
 
-      {title === "Backlog" ? (
+      {!stateInput ? (
+        <div className={styles.stage__containerButton}>
+          <button
+            id={styles.stage__addButton}
+            onClick={() => setStateInput(true)}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 6H8V1C8 0.448 7.552 0 7 0C6.448 0 6 0.448 6 1V6H1C0.448 6 0 6.448 0 7C0 7.552 0.448 8 1 8H6V13C6 13.552 6.448 14 7 14C7.552 14 8 13.552 8 13V8H13C13.552 8 14 7.552 14 7C14 6.448 13.552 6 13 6Z"
+                fill="#5E6C84"
+              />
+            </svg>
+            Add card
+          </button>
+        </div>
+      ) : title === "Backlog" ? (
         <div>
-          <input
-            type="text"
-            value={newTaskName}
-            onChange={(e) => setNewTaskName(e.target.value)}
-            placeholder="New task..."
-          />
-          <button onClick={handleAddCard}>Add Card</button>
+          <div className={styles.input_task}>
+            <input
+              type="text"
+              value={newTaskName}
+              onChange={(e) => setNewTaskName(e.target.value)}
+            />
+          </div>
+          <button id={styles.stage__submit} onClick={() => handleAddCard()}>
+            Submit
+          </button>
         </div>
       ) : (
         prevStage && (
-          <div>
+          <div className={styles.stage__select}>
             <select
-              value={selectedTaskId}
-              onChange={(e) => setSelectedTaskId(e.target.value)}
+              defaultValue=""
+              onChange={(e) => handleAddCard(e.target.value)}
             >
-              <option value="">Select task...</option>
+              <option value=""></option>
               {stages
                 .find((s) => s.title === prevStage)
                 ?.issues.map((t) => (
@@ -100,9 +122,6 @@ function Stage({ title, issues, setStages, stages }: StageProps) {
                   </option>
                 ))}
             </select>
-            <button onClick={handleAddCard} disabled={!selectedTaskId}>
-              Move
-            </button>
           </div>
         )
       )}
